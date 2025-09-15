@@ -9,8 +9,17 @@ export const App = () => {
   const [movies, setMovies] = useState<Movie[]>(moviesFromServer as Movie[]);
 
   const handleAdd = (movie: Movie) => {
+    const normalized: Movie = {
+      ...movie,
+      description: movie.description?.trim()
+        ? movie.description.trim()
+        : undefined,
+    };
+
     setMovies(prev =>
-      prev.some(m => m.imdbId === movie.imdbId) ? prev : [...prev, movie],
+      prev.some(existingMovie => existingMovie.imdbId === normalized.imdbId)
+        ? prev
+        : [...prev, normalized],
     );
   };
 
