@@ -11,15 +11,15 @@ export const App = () => {
   const handleAdd = (movie: Movie) => {
     const normalized: Movie = {
       ...movie,
-      description: movie.description?.trim()
-        ? movie.description.trim()
-        : undefined,
+      description: movie.description.trim(),
     };
 
-    setMovies(prev =>
-      prev.some(existingMovie => existingMovie.imdbId === normalized.imdbId)
-        ? prev
-        : [...prev, normalized],
+    setMovies(prevMovies =>
+      prevMovies.some(
+        existingMovie => existingMovie.imdbId === normalized.imdbId,
+      )
+        ? prevMovies
+        : [...prevMovies, normalized],
     );
   };
 
